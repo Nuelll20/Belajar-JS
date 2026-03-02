@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Program Belajar JavaScript Dasar</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1{
+            color: darkblue;
+        }
+        #output{
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            margin-top: 15px;
+        }
+        input{
+            padding: 6px;
+            margin: 5px 0;
+            width: 200px;
+        }
+        button{
+            padding: 8px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Program Pembelajaran JavaScript Dasar</h1>
+    <p>Masukkan data lalu, lalu klik tombol untuk menjalankan program.</p>
+
+    <label>Nama:</label><br>
+    <input type="text" id="nama"><br>
+
+    <label>Umur:</label><br>
+    <input type="number" id="umur"><br>
+
+    <button onclick="jalankanProgram()">Jalankan Program</button>
+    <button onclick="resetProgram()">Reset Program</button>
+
+    <div id="output"></div>
+
+    <p><b>Selamat Belajar. Terima kasih</b></p>
+    
+</body>
+</html>
