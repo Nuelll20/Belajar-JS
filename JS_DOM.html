@@ -158,8 +158,63 @@
                 container.appendChild(div);
             }
 
-            
+            //tampilkan step 2
+            document.getElementById("step2").classList.remove("hidden");
         }
+
+        //Step2 kumpulan teks pilihan, buat radio dan dropdown
+        function okStep2() {
+            var err = document.getElementById("err-step2");
+            arrayPilihan = [];
+
+            //loop ambil semua nilai input pilihan
+            for(var i = 1; i <= dataJumlah; i++){
+                var val = document.getElementById("pilihan -"+i).value.trim();
+
+                //error trapping
+                if(val===""){
+                    err.textContent = "Pilihan "+ i + " belum diisi!";
+                    return;
+                }
+
+                arrayPilihan.push(val); //simpan ke array
+            }
+
+            err.textContent = "";
+
+            //isi radio button dari array
+            var containerRadio = document.getElementById("container-radio");
+            containerRadio.innerHTML = "";
+
+            for(var i = 0; i < arrayPilihan.length; i++) {
+                var label = document.createElement("label");
+                var radio = document.createElement("input");
+                radio.type = "radio";
+                radio.name = "pilihan-radio";
+                radio.value = arrayPilihan[i];
+                if(i===0) radio.checked = true; //default pilih yang pertama
+
+                label.appendChild(radio);
+                label.appendChild(document.createTextNode(" " + arrayPilihan[i]));
+                containerRadio.appendChild(label);
+            }
+
+            //isi dropdown dari array
+            var select = document.getElementById("select-pilihan");
+            select.innerHTML = "";
+
+            for(var i = 0; i < arrayPilihan.length; i++){
+                var option = document.createElement("option");
+                option.value = arrayPilihano[i];
+                option.textContent = arrayPilihan[i];
+                select.appendChild(option);
+            }
+
+            //tampilkan step 3
+            document.getElementById("step3".classList.remove("hidden"));
+        }
+
+        
     </script>
 </body>
 </html>
