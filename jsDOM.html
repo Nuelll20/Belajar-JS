@@ -50,18 +50,24 @@
     
     <script>
         function jalankanProgram(){
+        //ambil nilai input dari DOM
             let nama = document.getElementById("nama").value;
             let umur = Number(document.getElementById("umur").value);
 
+            //validasi input
             if(nama == "" || umur == 0){
                 alert("Nama dan umur harus diisi")
                 return;
             }
 
+            //deklarasi variabel
             let mahasiswa = true;
             let jurusan = "Informatika";
             let hasil = "";
 
+            //kondisi
+            let setUmur = "";
+            if(umur<18)
             hasil += "<h3>====Data Anda===</h3>";
             hasil += "Nama: "+ nama + "<br>";
               
