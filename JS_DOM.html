@@ -1,278 +1,420 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Tugas 4 - JavaScript</title>
     <style>
-        body{
-            font-family: Arial, sans-serif;
-            max-width: 550px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: #f0f4f8;
+        min-height: 100vh;
+        padding: 30 16px 60px;
+      }
 
-        .header{
-            background: #f0f0f0;
-            border: 1px solid #ccc;
-            padding: 12px 16px;
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
+      .wrapper {
+        max-width: 520px;
+        margin: 0 auto;
+      }
 
-        .header img{
-            width: 60px; 
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #aaa;
-        }
+      .header {
+        background: white;
+        border-radius: 12px;
+        padding: 16px 20px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
 
-        /*setiap step dibungkus dalam section*/
-        .step{
-            border: 1px solid #ccc;
-            padding: 16px;
-            margin-bottom: 16px;
-        }
+      .header img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #4f8ef7;
+      }
 
-        /*baris label dan input*/
-        .row{
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-            gap: 8px;
+      .header .info {
+        font-size: 14px;
+        line-height: 1.8;
+        color: #444;
+      }
+
+      .header .info b {
+        font-size: 15px;
+        color: #222;
+      }
+
+      /*setiap step dibungkus dalam section*/
+      .step {
+        border: 1px solid #ccc;
+        padding: 16px;
+        margin-bottom: 16px;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
         }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .step-title {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #4f8ef7;
+        margin-bottom: 14px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #e8f0fe;
+      }
+      /*baris label dan input*/
+      .row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+        gap: 10px;
+      }
+
+      .row label {
+        width: 30px;
+        min-width: 130px;
+        font-size: 14px;
+        color: #555;
+        font-weight: 600;
+      }
+
+      .row input[text="text"],
+      .row select {
+        flex: 1;
+        padding: 8px 12px;
+        border: 1.5px solid #ddd;
+        border-radius: 8px;
+        font-size: 14px;
+        color: #333;
+        outline: none;
+        transition:
+          border-color 0,
+          2s,
+          box-shadow 0,
+          2s;
+      }
+
+      .row input[type="text"]:focus,
+      .row select:focus {
+        border-color: #4f8ef7;
+        box-shadow: 0 0 0 3px rgba(79, 142, 247, 0.15);
+      }
+      .row input.error {
+        border-color: #e53e3e;
+        box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.12);
+      }
+
+      /*Error MSG*/
+
+      .error-msg {
+        font-size: 12px;
+        color: #e53e3e;
+        margin-bottom: 10px;
+        min-height: 16px;
+      }
+
+      /*Tombol*/
+
+      button {
+        background: #4f8ef7;
+        color: white;
+        border: none;
+        padding: 9px 28px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          transform 0.1s;
+      }
+      button:hover {
+        background: #3a7ae0;
+      }
+      button:active {
+        transform: scale(0.97);
+      }
+
+      /*Radio*/
+      .radio-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 14px;
+      }
+
+      .radio-list label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 14px;
+        color: #444;
+        background: #f7f9ff;
+        border: 1.5px solid #dde4ff;
+        border-radius: 20px;
+        padding: 5px 14px;
+        cursor: pointer;
+        transition:
+          border-color 0.2s,
+          background 0.2s;
+        font-weight: normal;
+        min-width: unset;
+        width: auto;
+      }
+
+      .radio-list label:hover {
+        border-color: #4f8ef7;
+        background: #eef3ff;
+      }
+      .radio-list input[type="radio"] {
+        accent-color: #4f8ef7;
+      }
+
+      /*Output*/
+      #output-akhir {
+        background: white;
+        border-radius: 12px;
+        padding: 20px 24px;
+        font-size: 15px;
+        line-height: 1.8;
+        color: #333;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        border-left: 4px solid #4f83f7;
+        animation: slideDown 0.3s ease;
+      }
+      #output-akhir b {
+        color: #3a7ae0;
+      }
+
+      .hidden {
+        display: none;
+      }
     </style>
-</head>
-<body>
-    <!-----HEADER IDENTITAS-------->
-    <div class="header">
-        <img src="----" alt="Foto"/>
-        <div>
-            <b>Nama: Michael Angelo</b><br>
-            NIM: 245314003<br>
-            Tugas: Tugas 4 - JavaScript DOM
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- HEADER -->
+      <div class="header">
+        <img src="https://i.pravatar.cc/100?u=michael" alt="Foto" />
+        <div class="info">
+          <b>Michael Angelo</b><br />
+          NIM: 245314003<br />
+          Tugas 4 - JavaScript DOM
         </div>
-    </div>
+      </div>
 
-    <!----1.--Nama dan Jumlah------->
-    <div class="step" id="step1">
+      <!-- STEP 1 -->
+      <div class="step" id="step1">
+        <div class="step-title">Langkah 1 — Identitas</div>
         <div class="row">
-            <label>Nama: </label>
-            <input type="text" id="input-nama" placeholder="Teks Nama"/>
+          <label>Nama</label>
+          <input type="text" id="input-nama" placeholder="Masukkan nama" />
         </div>
         <div class="row">
-            <label>Jumlah Pilihan: </label>
-            <input type="text" id="input-jumlah" placeholder="angka" style="width: 60px;flex: none;"/>
+          <label>Jumlah Pilihan</label>
+          <input
+            type="text"
+            id="input-jumlah"
+            placeholder="angka"
+            style="width: 70px; flex: none"
+          />
         </div>
         <div class="error-msg" id="err-step1"></div>
         <button onclick="okStep1()">OK</button>
-    </div>
+      </div>
 
-    <!-----2.--Input teks pilihan--------->
-    <div class="step hidden" id="step2">
-        <div id="container-pilihan">
-
-        </div>
+      <!-- STEP 2 -->
+      <div class="step hidden" id="step2">
+        <div class="step-title">Langkah 2 — Isi Teks Pilihan</div>
+        <div id="container-pilihan"></div>
         <div class="error-msg" id="err-step2"></div>
         <button onclick="okStep2()">OK</button>
-    </div>
+      </div>
 
-    <!----3.---Radio Button + Dropdown---------->
-    <div class="step hidden" id="step3">
-        <p style="font-size: 14px; margin-bottom: 8px;">Pilihan: </p>
-
+      <!-- STEP 3 -->
+      <div class="step hidden" id="step3">
+        <div class="step-title">Langkah 3 — Pilih Salah Satu</div>
+        <p style="font-size: 13px; color: #888; margin-bottom: 10px">
+          Radio Button:
+        </p>
         <div class="radio-list" id="container-radio"></div>
-
-        <div class="row" style="margin-top: 10px;">
-            <label>Atau Dropdown: </label>
-            <select id="select-pilihan"></select>
+        <div class="row">
+          <label style="color: #888; font-size: 13px; font-weight: normal"
+            >Atau Dropdown</label
+          >
+          <select id="select-pilihan"></select>
         </div>
-
         <div class="error-msg" id="err-step3"></div>
         <button onclick="okStep3()">OK</button>
-    </div>
+      </div>
 
-    <!----4.--Input email----->
-    
-    <div class="step hidden" id="step4">
+      <!-- STEP 4 -->
+      <div class="step hidden" id="step4">
+        <div class="step-title">Langkah 4 — Email</div>
         <div class="row">
-            <label>Email: </label>
-            <input type="text" id="input-email" placeholder="email@domain.com"/>
+          <label>Email</label>
+          <input type="text" id="input-email" placeholder="nama@domain.com" />
         </div>
         <div class="error-msg" id="err-step4"></div>
         <button onclick="okStep4()">OK</button>
+      </div>
+
+      <!-- OUTPUT -->
+      <div id="output-akhir" class="hidden"></div>
     </div>
-
-    <!-----OUTPUT AKHIR----->
-    <div id="output-akhir" class="hidden"></div>
-
-
-    <!----JAVASCRIPT----->
     <script>
-        //variabel disetiap step
-        var dataNama= "";
-        var dataJumlah= 0;
-        var arrayPilihan = []; //array untuk menyimpan teks pilihan
-        var dataPilihan = ""; //pilihan yang dipilih user
+      var dataNama = "";
+      var dataJumlah = 0;
+      var arrayPilihan = [];
+      var dataPilihan = "";
 
-        //Step1 validasi nama dan jumlah, lalu buat input pilihan
-        function okStep1() {
-            var nama = document.getElementById("input-nama").value.trim();
-            var jumlah = document.getElementById("input-jumlah").value.trim();
-            var err = document.getElementById("err-step1");
+      function okStep1() {
+        var nama = document.getElementById("input-nama").value.trim();
+        var jumlah = document.getElementById("input-jumlah").value.trim();
+        var err = document.getElementById("err-step1");
 
-            //error trapping
-            if(nama === ""){
-                err.textContent = "Nama anda tidak boleh kosong!";
-                return;
-            }
-            if(jumlah === "" || isNaN(parseInt(jumlah)) || parseInt(jumlah) < 1){
-                err.textContent = "Jumlah Pilihan harus berupa angka dan minimal 1!";
-                return;
-            }
-
-            err.textContent = "";
-            dataNama = nama;
-            dataJumlah = parseInt(jumlah);
-
-            //buat input pilihan secara dinamis melakukan loop sebanyak dataJumlah
-            var container = document.getElementById("container-pilihan");
-            container.innerHTML = "";
-
-            for(var i = 1; i <= dataJumlah; i++) {
-                var div = document.createElement("div");
-                div.className = "row";
-
-                var label = document.createElement("label");
-                label.textContent = "Pilihan " + i + " :";
-
-                var input = document.createElement("input");
-                input.type = "text";
-                input.id = "pilihan -"+i;
-                input.placeholder = "Teks Pilihan "+i;
-
-                div.appendChild(label);
-                div.appendChild(input);
-                container.appendChild(div);
-            }
-
-            //tampilkan step 2
-            document.getElementById("step2").classList.remove("hidden");
+        if (nama === "") {
+          err.textContent = "Nama tidak boleh kosong!";
+          return;
+        }
+        if (jumlah === "" || isNaN(parseInt(jumlah)) || parseInt(jumlah) < 1) {
+          err.textContent = "Jumlah Pilihan harus angka minimal 1!";
+          return;
         }
 
-        //Step2 kumpulan teks pilihan, buat radio dan dropdown
-        function okStep2() {
-            var err = document.getElementById("err-step2");
-            arrayPilihan = [];
+        err.textContent = "";
+        dataNama = nama;
+        dataJumlah = parseInt(jumlah);
 
-            //loop ambil semua nilai input pilihan
-            for(var i = 1; i <= dataJumlah; i++){
-                var val = document.getElementById("pilihan -"+i).value.trim();
+        var container = document.getElementById("container-pilihan");
+        container.innerHTML = "";
 
-                //error trapping
-                if(val===""){
-                    err.textContent = "Pilihan "+ i + " belum diisi!";
-                    return;
-                }
-
-                arrayPilihan.push(val); //simpan ke array
-            }
-
-            err.textContent = "";
-
-            //isi radio button dari array
-            var containerRadio = document.getElementById("container-radio");
-            containerRadio.innerHTML = "";
-
-            for(var i = 0; i < arrayPilihan.length; i++) {
-                var label = document.createElement("label");
-                var radio = document.createElement("input");
-                radio.type = "radio";
-                radio.name = "pilihan-radio";
-                radio.value = arrayPilihan[i];
-                if(i===0) radio.checked = true; //default pilih yang pertama
-
-                label.appendChild(radio);
-                label.appendChild(document.createTextNode(" " + arrayPilihan[i]));
-                containerRadio.appendChild(label);
-            }
-
-            //isi dropdown dari array
-            var select = document.getElementById("select-pilihan");
-            select.innerHTML = "";
-
-            for(var i = 0; i < arrayPilihan.length; i++){
-                var option = document.createElement("option");
-                option.value = arrayPilihano[i];
-                option.textContent = arrayPilihan[i];
-                select.appendChild(option);
-            }
-
-            //tampilkan step 3
-            document.getElementById("step3".classList.remove("hidden"));
+        for (var i = 1; i <= dataJumlah; i++) {
+          var div = document.createElement("div");
+          div.className = "row";
+          var label = document.createElement("label");
+          label.textContent = "Pilihan " + i;
+          var input = document.createElement("input");
+          input.type = "text";
+          input.id = "pilihan-" + i;
+          input.placeholder = "Teks Pilihan " + i;
+          div.appendChild(label);
+          div.appendChild(input);
+          container.appendChild(div);
         }
 
-        //Step 3 mengambil piliha  dari radio/dropdown
-        function okStep3() {
-            var err = document.getElementById("err-step3");
+        document.getElementById("step2").classList.remove("hidden");
+      }
 
-            //ambil pilihan dari radio button
-            var radio = document.querySelector('input[name = "pilihan-radio"]: checked');
+      function okStep2() {
+        var err = document.getElementById("err-step2");
+        arrayPilihan = [];
 
-            if(!radio){
-                err.textContent = "Belum ada pilihan yang dipilih!";
-                return;
-            }
-
-            err.textContent = "";
-            dataPilihan = radio.value; //simpan pilihan
-
-            //tampilkan step 4
-            document.getElementById("step4").classList.remove("hidden");
+        for (var i = 1; i <= dataJumlah; i++) {
+          var val = document.getElementById("pilihan-" + i).value.trim();
+          if (val === "") {
+            err.textContent = "Pilihan " + i + " belum diisi!";
+            return;
+          }
+          arrayPilihan.push(val);
         }
 
-        //step 4 validasi email dan menampilkan output
-        function okStep4() {
-            var email = document.getElementById("input-email").value.trim();
-            var err = document.getElementById("err-step4");
+        err.textContent = "";
 
-            //pattern matching email
-            var pola = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            if(email === ""){
-                err.textContent = "Email tidak boleh kosong!";
-                document.getElementById("input-email").classList.add("error");
-                return;
-            }
-
-            if(!pola.test(email)){
-                err.textContent = "Format email tidak valid! Contoh: nama@domain.com";
-                document.getElementById("input-email").classList.add("error");
-                alert("email tidak valid!\nContoh yang benar: nama@domain.com");
-                document.getElementById("input-email").focus();
-                return;
-            }
-
-            err.textContent = "";
-            document.getElementById("input-email").classList.remove("error");
-
-            //susun kalimat output
-            //arrayPilihan.join(", ") gabung semua item array dengan koma
-            var semuaPilihan = arrayPilihan.join(", ");
-
-            var kalimat = "Hallo, nama saya <b>"+ dataNama + "</b>, "+
-                "email <b>" +email+ "</b>, " +
-                "Saya mempunyai sejumlah <b> "+ dataJumlah + "</b> pilihan yaitu <b>" +
-                semuaPilihan + "</b>, " + 
-                "dan saya memilih <b>" + dataPilihan + "</b>."
-
-                //tampilkan ke DOM
-                var output = document.getElementById("output-akhir");
-                output.innerHTML = kalimat;
-                output.classList.remove("hidden");
+        var containerRadio = document.getElementById("container-radio");
+        containerRadio.innerHTML = "";
+        for (var i = 0; i < arrayPilihan.length; i++) {
+          var label = document.createElement("label");
+          var radio = document.createElement("input");
+          radio.type = "radio";
+          radio.name = "pilihan-radio";
+          radio.value = arrayPilihan[i];
+          if (i === 0) radio.checked = true;
+          label.appendChild(radio);
+          label.appendChild(document.createTextNode(" " + arrayPilihan[i]));
+          containerRadio.appendChild(label);
         }
+
+        var select = document.getElementById("select-pilihan");
+        select.innerHTML = "";
+        for (var i = 0; i < arrayPilihan.length; i++) {
+          var option = document.createElement("option");
+          option.value = option.textContent = arrayPilihan[i];
+          select.appendChild(option);
+        }
+
+        document.getElementById("step3").classList.remove("hidden");
+      }
+
+      function okStep3() {
+        var err = document.getElementById("err-step3");
+        var radio = document.querySelector(
+          'input[name="pilihan-radio"]:checked',
+        );
+        if (!radio) {
+          err.textContent = "Belum ada pilihan yang dipilih!";
+          return;
+        }
+        err.textContent = "";
+        dataPilihan = radio.value;
+        document.getElementById("step4").classList.remove("hidden");
+      }
+
+      function okStep4() {
+        var email = document.getElementById("input-email").value.trim();
+        var err = document.getElementById("err-step4");
+        var pola = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (email === "") {
+          err.textContent = "Email tidak boleh kosong!";
+          document.getElementById("input-email").classList.add("error");
+          return;
+        }
+        if (!pola.test(email)) {
+          err.textContent = "Format email tidak valid! Contoh: nama@domain.com";
+          document.getElementById("input-email").classList.add("error");
+          alert("Email tidak valid!\nContoh: nama@domain.com");
+          document.getElementById("input-email").focus();
+          return;
+        }
+
+        err.textContent = "";
+        document.getElementById("input-email").classList.remove("error");
+
+        var kalimat =
+          "Hallo, nama saya <b>" +
+          dataNama +
+          "</b>, email <b>" +
+          email +
+          "</b>, saya mempunyai sejumlah <b>" +
+          dataJumlah +
+          "</b> pilihan yaitu <b>" +
+          arrayPilihan.join(", ") +
+          "</b>, dan saya memilih <b>" +
+          dataPilihan +
+          "</b>.";
+
+        var output = document.getElementById("output-akhir");
+        output.innerHTML = kalimat;
+        output.classList.remove("hidden");
+      }
     </script>
-</body>
+  </body>
 </html>
