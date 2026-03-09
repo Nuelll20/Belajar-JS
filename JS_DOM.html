@@ -106,6 +106,60 @@
     </div>
 
     <!-----OUTPUT AKHIR----->
-    
+    <div id="output-akhir" class="hidden"></div>
+
+
+    <!----JAVASCRIPT----->
+    <script>
+        //variabel disetiap step
+        var dataNama= "";
+        var dataJumlah= 0;
+        var arrayPilihan = []; //array untuk menyimpan teks pilihan
+        var dataPilihan = ""; //pilihan yang dipilih user
+
+        //Step1 validasi nama dan jumlah, lalu buat input pilihan
+        function okStep1() {
+            var nama = document.getElementById("input-nama").value.trim();
+            var jumlah = document.getElementById("input-jumlah").value.trim();
+            var err = document.getElementById("err-step1");
+
+            //error trapping
+            if(nama === ""){
+                err.textContent = "Nama anda tidak boleh kosong!";
+                return;
+            }
+            if(jumlah === "" || isNaN(parseInt(jumlah)) || parseInt(jumlah) < 1){
+                err.textContent = "Jumlah Pilihan harus berupa angka dan minimal 1!";
+                return;
+            }
+
+            err.textContent = "";
+            dataNama = nama;
+            dataJumlah = parseInt(jumlah);
+
+            //buat input pilihan secara dinamis melakukan loop sebanyak dataJumlah
+            var container = document.getElementById("container-pilihan");
+            container.innerHTML = "";
+
+            for(var i = 1; i <= dataJumlah; i++) {
+                var div = document.createElement("div");
+                div.className = "row";
+
+                var label = document.createElement("label");
+                label.textContent = "Pilihan " + i + " :";
+
+                var input = document.createElement("input");
+                input.type = "text";
+                input.id = "pilihan -"+i;
+                input.placeholder = "Teks Pilihan "+i;
+
+                div.appendChild(label);
+                div.appendChild(input);
+                container.appendChild(div);
+            }
+
+            
+        }
+    </script>
 </body>
 </html>
