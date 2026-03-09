@@ -233,7 +233,46 @@
             document.getElementById("step4").classList.remove("hidden");
         }
 
-        
+        //step 4 validasi email dan menampilkan output
+        function okStep4() {
+            var email = document.getElementById("input-email").value.trim();
+            var err = document.getElementById("err-step4");
+
+            //pattern matching email
+            var pola = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if(email === ""){
+                err.textContent = "Email tidak boleh kosong!";
+                document.getElementById("input-email").classList.add("error");
+                return;
+            }
+
+            if(!pola.test(email)){
+                err.textContent = "Format email tidak valid! Contoh: nama@domain.com";
+                document.getElementById("input-email").classList.add("error");
+                alert("email tidak valid!\nContoh yang benar: nama@domain.com");
+                document.getElementById("input-email").focus();
+                return;
+            }
+
+            err.textContent = "";
+            document.getElementById("input-email").classList.remove("error");
+
+            //susun kalimat output
+            //arrayPilihan.join(", ") gabung semua item array dengan koma
+            var semuaPilihan = arrayPilihan.join(", ");
+
+            var kalimat = "Hallo, nama saya <b>"+ dataNama + "</b>, "+
+                "email <b>" +email+ "</b>, " +
+                "Saya mempunyai sejumlah <b> "+ dataJumlah + "</b> pilihan yaitu <b>" +
+                semuaPilihan + "</b>, " + 
+                "dan saya memilih <b>" + dataPilihan + "</b>."
+
+                //tampilkan ke DOM
+                var output = document.getElementById("output-akhir");
+                output.innerHTML = kalimat;
+                output.classList.remove("hidden");
+        }
     </script>
 </body>
 </html>
