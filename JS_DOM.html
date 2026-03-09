@@ -214,6 +214,25 @@
             document.getElementById("step3".classList.remove("hidden"));
         }
 
+        //Step 3 mengambil piliha  dari radio/dropdown
+        function okStep3() {
+            var err = document.getElementById("err-step3");
+
+            //ambil pilihan dari radio button
+            var radio = document.querySelector('input[name = "pilihan-radio"]: checked');
+
+            if(!radio){
+                err.textContent = "Belum ada pilihan yang dipilih!";
+                return;
+            }
+
+            err.textContent = "";
+            dataPilihan = radio.value; //simpan pilihan
+
+            //tampilkan step 4
+            document.getElementById("step4").classList.remove("hidden");
+        }
+
         
     </script>
 </body>
