@@ -47,6 +47,65 @@
 </head>
 <body>
     <!-----HEADER IDENTITAS-------->
+    <div class="header">
+        <img src="----" alt="Foto"/>
+        <div>
+            <b>Nama: Michael Angelo</b><br>
+            NIM: 245314003<br>
+            Tugas: Tugas 4 - JavaScript DOM
+        </div>
+    </div>
+
+    <!----1.--Nama dan Jumlah------->
+    <div class="step" id="step1">
+        <div class="row">
+            <label>Nama: </label>
+            <input type="text" id="input-nama" placeholder="Teks Nama"/>
+        </div>
+        <div class="row">
+            <label>Jumlah Pilihan: </label>
+            <input type="text" id="input-jumlah" placeholder="angka" style="width: 60px;flex: none;"/>
+        </div>
+        <div class="error-msg" id="err-step1"></div>
+        <button onclick="okStep1()">OK</button>
+    </div>
+
+    <!-----2.--Input teks pilihan--------->
+    <div class="step hidden" id="step2">
+        <div id="container-pilihan">
+
+        </div>
+        <div class="error-msg" id="err-step2"></div>
+        <button onclick="okStep2()">OK</button>
+    </div>
+
+    <!----3.---Radio Button + Dropdown---------->
+    <div class="step hidden" id="step3">
+        <p style="font-size: 14px; margin-bottom: 8px;">Pilihan: </p>
+
+        <div class="radio-list" id="container-radio"></div>
+
+        <div class="row" style="margin-top: 10px;">
+            <label>Atau Dropdown: </label>
+            <select id="select-pilihan"></select>
+        </div>
+
+        <div class="error-msg" id="err-step3"></div>
+        <button onclick="okStep3()">OK</button>
+    </div>
+
+    <!----4.--Input email----->
+    
+    <div class="step hidden" id="step4">
+        <div class="row">
+            <label>Email: </label>
+            <input type="text" id="input-email" placeholder="email@domain.com"/>
+        </div>
+        <div class="error-msg" id="err-step4"></div>
+        <button onclick="okStep4()">OK</button>
+    </div>
+
+    <!-----OUTPUT AKHIR----->
     
 </body>
 </html>
